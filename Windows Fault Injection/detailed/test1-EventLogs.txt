@@ -1,0 +1,40 @@
+﻿
+===== Event Log excerpt (test1) at 10/30/2025 11:42:41 =====
+
+
+--- Provider: Disk ---
+
+
+TimeGenerated            EntryType Source               Message         
+-------------            --------- ------               -------         
+10/30/2025 11:11:57 AM Information Virtual Disk Service Service stopped.
+10/30/2025 11:11:23 AM Information Virtual Disk Service Service started.
+10/30/2025 11:10:55 AM Information Virtual Disk Service Service stopped.
+10/30/2025 11:10:42 AM Information Virtual Disk Service Service started.
+
+
+
+
+--- Provider: Ntfs ---
+
+
+TimeGenerated            EntryType Source                 Message                                                      
+-------------            --------- ------                 -------                                                      
+10/30/2025 10:51:47 AM Information Microsoft-Windows-Ntfs The description for Event ID '98' in Source 'Microsoft-Win...
+10/30/2025 9:50:12 AM  Information Microsoft-Windows-Ntfs The description for Event ID '98' in Source 'Microsoft-Win...
+
+
+
+
+--- Provider: Kernel-Power ---
+
+
+TimeGenerated            EntryType Source                         Message                                              
+-------------            --------- ------                         -------                                              
+10/30/2025 10:51:48 AM Information Microsoft-Windows-Kernel-Power The description for Event ID '172' in Source 'Micr...
+10/30/2025 10:50:47 AM Information Microsoft-Windows-Kernel-Power The description for Event ID '109' in Source 'Micr...
+10/30/2025 9:50:13 AM  Information Microsoft-Windows-Kernel-Power The description for Event ID '172' in Source 'Micr...
+10/14/2025 12:34:00 PM Information Microsoft-Windows-Kernel-Power The description for Event ID '109' in Source 'Micr...
+
+
+

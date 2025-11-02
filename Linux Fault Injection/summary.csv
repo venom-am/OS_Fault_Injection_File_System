@@ -1,0 +1,4 @@
+timestamp,test,trial,result,pre_hash,post_hash,fsck_log,dmesg_log,notes
+2025-11-02_07:25:30,FileCorrupt,1,Modified,4b98bbb927893507b141af9d7d28f4a3,c1e6c8e416459b99414d65d087a3d203,/root/fs_fault_lab_linux/detailed/test1_fsck_20251102_072530.txt,/root/fs_fault_lab_linux/detailed/test1_dmesg_20251102_072530.txt,byte_flips=32
+2025-11-02_07:28:48,ManualCrashSim,1,postHashCheck,,c1e6c8e416459b99414d65d087a3d203,/root/fs_fault_lab_linux/detailed/manual_test3_fsck.txt,/root/fs_fault_lab_linux/detailed/manual_test3_dmesg.txt,lazy_unmount
+2025-11-02_07:28:48,ManualIOStress,1,done,,c1e6c8e416459b99414d65d087a3d203,/root/fs_fault_lab_linux/detailed/manual_test4_fsck.txt,/root/fs_fault_lab_linux/detailed/manual_test4_dmesg.txt,parallel_copies=5

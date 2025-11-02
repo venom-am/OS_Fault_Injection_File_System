@@ -1,0 +1,11 @@
+[2025-11-02_07:28:47] START manual TEST3+TEST4
+Loop attached: /dev/loop0
+Using target: /dev/mapper/flakey0
+Mounted /dev/mapper/flakey0 -> /root/fs_fault_lab_linux/mnt
+[2025-11-02_07:28:47] TEST3 starting
+Doing lazy unmount to mimic sudden device loss
+Running fsck.ext4 -fy (attempt repair)
+[2025-11-02_07:28:48] TEST3 done (post_hash=c1e6c8e416459b99414d65d087a3d203)
+[2025-11-02_07:28:48] TEST4 starting
+[2025-11-02_07:28:48] TEST4 done (post_hash=c1e6c8e416459b99414d65d087a3d203)
+[2025-11-02_07:28:48] FINISHED manual TEST3+TEST4

@@ -1,0 +1,5 @@
+cp: error copying '/root/fs_fault_lab_linux/mnt/testfile.bin' to '/root/fs_fault_lab_linux/mnt/manual_stress_copy_1.bin': No space left on device
+cp: error copying '/root/fs_fault_lab_linux/mnt/testfile.bin' to '/root/fs_fault_lab_linux/mnt/manual_stress_copy_2.bin': No space left on device
+cp: error copying '/root/fs_fault_lab_linux/mnt/testfile.bin' to '/root/fs_fault_lab_linux/mnt/manual_stress_copy_5.bin': No space left on device
+cp: error copying '/root/fs_fault_lab_linux/mnt/testfile.bin' to '/root/fs_fault_lab_linux/mnt/manual_stress_copy_3.bin': No space left on device
+cp: error copying '/root/fs_fault_lab_linux/mnt/testfile.bin' to '/root/fs_fault_lab_linux/mnt/manual_stress_copy_4.bin': No space left on device

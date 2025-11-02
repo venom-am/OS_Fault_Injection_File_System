@@ -1,0 +1,200 @@
+[    2.551535] ata2.00: ATAPI: VMware Virtual IDE CDROM Drive, 00000001, max UDMA/33
+[    2.558079] scsi 1:0:0:0: CD-ROM            NECVMWar VMware IDE CDR10 1.00 PQ: 0 ANSI: 5
+[    2.580255] vmwgfx 0000:00:0f.0: vgaarb: deactivate vga console
+[    2.580441] Console: switching to colour dummy device 80x25
+[    2.581087] vmwgfx 0000:00:0f.0: [drm] FIFO at 0x00000000fe000000 size is 8192 kiB
+[    2.581133] vmwgfx 0000:00:0f.0: [drm] VRAM at 0x00000000e8000000 size is 131072 kiB
+[    2.581212] vmwgfx 0000:00:0f.0: [drm] Running on SVGA version 2.
+[    2.581230] vmwgfx 0000:00:0f.0: [drm] Capabilities: rect copy, cursor, cursor bypass, cursor bypass 2, 8bit emulation, alpha cursor, extended fifo, multimon, pitchlock, irq mask, display topology, gmr, traces, gmr2, screen object 2, command buffers, command buffers 2, gbobject, dx, hp cmd queue, no bb restriction, cap2 register, 
+[    2.581243] vmwgfx 0000:00:0f.0: [drm] Capabilities2: grow otable, intra surface copy, dx2, gb memsize 2, screendma reg, otable ptdepth2, non ms to ms stretchblt, cursor mob, mshint, cb max size 4mb, dx3, frame type, trace full fb, extra regs, lo staging, 
+[    2.581245] vmwgfx 0000:00:0f.0: [drm] DMA map mode: Caching DMA mappings.
+[    2.581457] vmwgfx 0000:00:0f.0: [drm] Legacy memory limits: VRAM = 4096 kB, FIFO = 256 kB, surface = 0 kB
+[    2.581460] vmwgfx 0000:00:0f.0: [drm] MOB limits: max mob size = 262144 kB, max mob pages = 196608
+[    2.581462] vmwgfx 0000:00:0f.0: [drm] Max GMR ids is 64
+[    2.581463] vmwgfx 0000:00:0f.0: [drm] Max number of GMR pages is 65536
+[    2.581464] vmwgfx 0000:00:0f.0: [drm] Maximum display memory size is 262144 kiB
+[    2.587228] vmwgfx 0000:00:0f.0: [drm] Screen Target display unit initialized
+[    2.588236] vmwgfx 0000:00:0f.0: [drm] Fifo max 0x00040000 min 0x00001000 cap 0x0000077f
+[    2.598385] vmwgfx 0000:00:0f.0: [drm] Using command buffers with DMA pool.
+[    2.598420] vmwgfx 0000:00:0f.0: [drm] Available shader model: Legacy.
+[    2.599647] [drm] Initialized vmwgfx 2.20.0 20211206 for 0000:00:0f.0 on minor 0
+[    2.603245] sr 1:0:0:0: [sr0] scsi3-mmc drive: 1x/1x writer dvd-ram cd/rw xa/form2 cdda tray
+[    2.603250] cdrom: Uniform CD-ROM driver Revision: 3.20
+[    2.610199] fbcon: vmwgfxdrmfb (fb0) is primary device
+[    2.619301] Console: switching to colour frame buffer device 160x50
+[    2.620488] vmwgfx 0000:00:0f.0: [drm] fb0: vmwgfxdrmfb frame buffer device
+[    2.630248] usb 2-1: new full-speed USB device number 2 using uhci_hcd
+[    2.639631] sr 1:0:0:0: Attached scsi CD-ROM sr0
+[    2.736956] scsi host2: ioc0: LSI53C1030 B0, FwRev=01032920h, Ports=1, MaxQ=128, IRQ=17
+[    2.794150] usb 2-1: New USB device found, idVendor=0e0f, idProduct=0003, bcdDevice= 1.03
+[    2.794157] usb 2-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[    2.794160] usb 2-1: Product: VMware Virtual USB Mouse
+[    2.794162] usb 2-1: Manufacturer: VMware
+[    2.915224] scsi 2:0:0:0: Direct-Access     VMware,  VMware Virtual S 1.0  PQ: 0 ANSI: 2
+[    2.930549] usb 2-2: new full-speed USB device number 3 using uhci_hcd
+[    2.930576] scsi target2:0:0: Beginning Domain Validation
+[    2.933153] scsi target2:0:0: Domain Validation skipping write tests
+[    2.933155] scsi target2:0:0: Ending Domain Validation
+[    2.933227] scsi target2:0:0: FAST-40 WIDE SCSI 80.0 MB/s ST (25 ns, offset 127)
+[    2.951852] sd 2:0:0:0: [sda] 167772160 512-byte logical blocks: (85.9 GB/80.0 GiB)
+[    2.951961] sd 2:0:0:0: [sda] Write Protect is off
+[    2.951964] sd 2:0:0:0: [sda] Mode Sense: 61 00 00 00
+[    2.952063] sd 2:0:0:0: [sda] Cache data unavailable
+[    2.952065] sd 2:0:0:0: [sda] Assuming drive cache: write through
+[    2.953592]  sda: sda1 sda2 < sda5 >
+[    2.953922] sd 2:0:0:0: [sda] Attached SCSI disk
+[    3.095748] usb 2-2: New USB device found, idVendor=0e0f, idProduct=0002, bcdDevice= 1.00
+[    3.095755] usb 2-2: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[    3.095758] usb 2-2: Product: VMware Virtual USB Hub
+[    3.095760] usb 2-2: Manufacturer: VMware, Inc.
+[    3.103521] hub 2-2:1.0: USB hub found
+[    3.106639] hub 2-2:1.0: 7 ports detected
+[    3.128495] hid: raw HID events driver (C) Jiri Kosina
+[    3.133219] usbcore: registered new interface driver usbhid
+[    3.133223] usbhid: USB HID core driver
+[    3.135281] input: VMware VMware Virtual USB Mouse as /devices/pci0000:00/0000:00:11.0/0000:02:00.0/usb2/2-1/2-1:1.0/0003:0E0F:0003.0001/input/input5
+[    3.135561] hid-generic 0003:0E0F:0003.0001: input,hidraw0: USB HID v1.10 Mouse [VMware VMware Virtual USB Mouse] on usb-0000:02:00.0-1/input0
+[    3.239393] PM: Image not found (code -22)
+[    3.417874] usb 2-2.1: new full-speed USB device number 4 using uhci_hcd
+[    3.539026] usb 2-2.1: New USB device found, idVendor=0e0f, idProduct=0008, bcdDevice= 1.00
+[    3.539033] usb 2-2.1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[    3.539036] usb 2-2.1: Product: Virtual Bluetooth Adapter
+[    3.539038] usb 2-2.1: Manufacturer: VMware
+[    3.539040] usb 2-2.1: SerialNumber: 000650268328
+[    5.866736] EXT4-fs (sda1): orphan cleanup on readonly fs
+[    5.867088] EXT4-fs (sda1): mounted filesystem a7ae5edc-545b-4663-a922-3055db4ced84 ro with ordered data mode. Quota mode: none.
+[    5.965634] Not activating Mandatory Access Control as /sbin/tomoyo-init does not exist.
+[    6.071834] systemd[1]: Inserted module 'autofs4'
+[    6.106632] systemd[1]: systemd 256.2-1 running in system mode (+PAM +AUDIT +SELINUX +APPARMOR +IMA +SMACK +SECCOMP +GCRYPT -GNUTLS +OPENSSL +ACL +BLKID +CURL +ELFUTILS +FIDO2 +IDN2 -IDN +IPTC +KMOD +LIBCRYPTSETUP +LIBCRYPTSETUP_PLUGINS +LIBFDISK +PCRE2 +PWQUALITY +P11KIT +QRENCODE +TPM2 +BZIP2 +LZ4 +XZ +ZLIB +ZSTD +BPF_FRAMEWORK -XKBCOMMON +UTMP +SYSVINIT +LIBARCHIVE)
+[    6.106637] systemd[1]: Detected virtualization vmware.
+[    6.106711] systemd[1]: Detected architecture x86-64.
+[    6.108685] systemd[1]: Hostname set to <kali>.
+[    6.410456] systemd[1]: bpf-restrict-fs: LSM BPF program attached
+[    6.457672] vmw_vmci 0000:00:07.7: MMIO register access is available
+[    6.457882] vmw_vmci 0000:00:07.7: Using capabilities 0x3c
+[    6.459276] Guest personality initialized and is active
+[    6.459518] VMCI host device registered (name=vmci, major=10, minor=124)
+[    6.459520] Initialized host personality
+[    6.464067] NET: Registered PF_VSOCK protocol family
+[    6.658364] systemd[1]: Queued start job for default target graphical.target.
+[    6.688326] systemd[1]: Created slice system-getty.slice - Slice /system/getty.
+[    6.688703] systemd[1]: Created slice system-modprobe.slice - Slice /system/modprobe.
+[    6.688942] systemd[1]: Created slice user.slice - User and Session Slice.
+[    6.689008] systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+[    6.689196] systemd[1]: Set up automount proc-sys-fs-binfmt_misc.automount - Arbitrary Executable File Formats File System Automount Point.
+[    6.689215] systemd[1]: Expecting device dev-disk-by\x2duuid-7b158d2f\x2dea43\x2d44f0\x2d9570\x2dd10470ccd401.device - /dev/disk/by-uuid/7b158d2f-ea43-44f0-9570-d10470ccd401...
+[    6.689229] systemd[1]: Reached target integritysetup.target - Local Integrity Protected Volumes.
+[    6.689249] systemd[1]: Reached target nss-user-lookup.target - User and Group Name Lookups.
+[    6.689262] systemd[1]: Reached target slices.target - Slice Units.
+[    6.689294] systemd[1]: Reached target stunnel.target - TLS tunnels for network services - per-config-file target.
+[    6.689311] systemd[1]: Reached target veritysetup.target - Local Verity Protected Volumes.
+[    6.691241] systemd[1]: Listening on systemd-creds.socket - Credential Encryption/Decryption.
+[    6.691307] systemd[1]: Listening on systemd-initctl.socket - initctl Compatibility Named Pipe.
+[    6.691381] systemd[1]: Listening on systemd-journald-dev-log.socket - Journal Socket (/dev/log).
+[    6.691455] systemd[1]: Listening on systemd-journald.socket - Journal Sockets.
+[    6.691472] systemd[1]: systemd-pcrextend.socket - TPM PCR Measurements was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[    6.691481] systemd[1]: systemd-pcrlock.socket - Make TPM PCR Policy was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[    6.691551] systemd[1]: Listening on systemd-udevd-control.socket - udev Control Socket.
+[    6.691600] systemd[1]: Listening on systemd-udevd-kernel.socket - udev Kernel Socket.
+[    6.692858] systemd[1]: Mounting dev-hugepages.mount - Huge Pages File System...
+[    6.693665] systemd[1]: Mounting dev-mqueue.mount - POSIX Message Queue File System...
+[    6.694499] systemd[1]: Mounting run-lock.mount - Legacy Locks Directory /run/lock...
+[    6.697728] systemd[1]: Mounting sys-kernel-debug.mount - Kernel Debug File System...
+[    6.699461] systemd[1]: Mounting sys-kernel-tracing.mount - Kernel Trace File System...
+[    6.699508] systemd[1]: auth-rpcgss-module.service - Kernel Module supporting RPCSEC_GSS was skipped because of an unmet condition check (ConditionPathExists=/etc/krb5.keytab).
+[    6.702230] systemd[1]: Starting keyboard-setup.service - Set the console keyboard layout...
+[    6.703091] systemd[1]: Starting kmod-static-nodes.service - Create List of Static Device Nodes...
+[    6.706292] systemd[1]: Starting modprobe@configfs.service - Load Kernel Module configfs...
+[    6.707653] systemd[1]: Starting modprobe@drm.service - Load Kernel Module drm...
+[    6.709225] systemd[1]: Starting modprobe@efi_pstore.service - Load Kernel Module efi_pstore...
+[    6.714495] systemd[1]: Starting modprobe@fuse.service - Load Kernel Module fuse...
+[    6.714553] systemd[1]: systemd-fsck-root.service - File System Check on Root Device was skipped because of an unmet condition check (ConditionPathExists=!/run/initramfs/fsck-root).
+[    6.714588] systemd[1]: systemd-hibernate-clear.service - Clear Stale Hibernate Storage Info was skipped because of an unmet condition check (ConditionPathExists=/sys/firmware/efi/efivars/HibernateLocation-8cf2644b-4b0b-428f-9387-6d876050dc67).
+[    6.718378] systemd[1]: Starting systemd-journald.service - Journal Service...
+[    6.720650] systemd[1]: Starting systemd-modules-load.service - Load Kernel Modules...
+[    6.720665] systemd[1]: systemd-pcrmachine.service - TPM PCR Machine ID Measurement was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[    6.722279] systemd[1]: Starting systemd-remount-fs.service - Remount Root and Kernel File Systems...
+[    6.722310] systemd[1]: systemd-tpm2-setup-early.service - Early TPM SRK Setup was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[    6.725584] systemd[1]: Starting systemd-udev-load-credentials.service - Load udev Rules from Credentials...
+[    6.727489] systemd[1]: Starting systemd-udev-trigger.service - Coldplug All udev Devices...
+[    6.728943] systemd[1]: Mounted dev-hugepages.mount - Huge Pages File System.
+[    6.729072] systemd[1]: Mounted dev-mqueue.mount - POSIX Message Queue File System.
+[    6.729187] systemd[1]: Mounted run-lock.mount - Legacy Locks Directory /run/lock.
+[    6.729293] systemd[1]: Mounted sys-kernel-debug.mount - Kernel Debug File System.
+[    6.729401] systemd[1]: Mounted sys-kernel-tracing.mount - Kernel Trace File System.
+[    6.730399] systemd[1]: Finished keyboard-setup.service - Set the console keyboard layout.
+[    6.733186] systemd[1]: Finished kmod-static-nodes.service - Create List of Static Device Nodes.
+[    6.733562] systemd[1]: modprobe@configfs.service: Deactivated successfully.
+[    6.733748] systemd[1]: Finished modprobe@configfs.service - Load Kernel Module configfs.
+[    6.734154] systemd[1]: modprobe@drm.service: Deactivated successfully.
+[    6.734305] systemd[1]: Finished modprobe@drm.service - Load Kernel Module drm.
+[    6.734535] systemd[1]: modprobe@efi_pstore.service: Deactivated successfully.
+[    6.734679] systemd[1]: Finished modprobe@efi_pstore.service - Load Kernel Module efi_pstore.
+[    6.734905] systemd[1]: modprobe@fuse.service: Deactivated successfully.
+[    6.735071] systemd[1]: Finished modprobe@fuse.service - Load Kernel Module fuse.
+[    6.736061] systemd[1]: Mounting sys-fs-fuse-connections.mount - FUSE Control File System...
+[    6.738381] systemd[1]: Mounting sys-kernel-config.mount - Kernel Configuration File System...
+[    6.740466] systemd[1]: Starting systemd-tmpfiles-setup-dev-early.service - Create Static Device Nodes in /dev gracefully...
+[    6.743747] systemd[1]: Finished systemd-udev-load-credentials.service - Load udev Rules from Credentials.
+[    6.746782] EXT4-fs (sda1): re-mounted a7ae5edc-545b-4663-a922-3055db4ced84 r/w. Quota mode: none.
+[    6.748580] systemd[1]: Finished systemd-remount-fs.service - Remount Root and Kernel File Systems.
+[    6.749069] systemd[1]: systemd-hwdb-update.service - Rebuild Hardware Database was skipped because of an unmet condition check (ConditionNeedsUpdate=/etc).
+[    6.749104] systemd[1]: systemd-pstore.service - Platform Persistent Storage Archival was skipped because of an unmet condition check (ConditionDirectoryNotEmpty=/sys/fs/pstore).
+[    6.750572] systemd[1]: Starting systemd-random-seed.service - Load/Save OS Random Seed...
+[    6.750588] systemd[1]: systemd-tpm2-setup.service - TPM SRK Setup was skipped because of an unmet condition check (ConditionSecurity=measured-uki).
+[    6.752057] systemd[1]: Mounted sys-fs-fuse-connections.mount - FUSE Control File System.
+[    6.752198] systemd[1]: Mounted sys-kernel-config.mount - Kernel Configuration File System.
+[    6.753396] systemd-journald[405]: Collecting audit messages is disabled.
+[    6.754716] systemd[1]: Finished systemd-modules-load.service - Load Kernel Modules.
+[    6.758402] systemd[1]: Starting systemd-sysctl.service - Apply Kernel Variables...
+[    6.768345] systemd[1]: Finished systemd-random-seed.service - Load/Save OS Random Seed.
+[    6.775460] systemd[1]: Finished systemd-tmpfiles-setup-dev-early.service - Create Static Device Nodes in /dev gracefully.
+[    6.775798] systemd[1]: Finished systemd-sysctl.service - Apply Kernel Variables.
+[    6.775979] systemd[1]: systemd-sysusers.service - Create System Users was skipped because no trigger condition checks were met.
+[    6.776775] systemd[1]: Starting systemd-tmpfiles-setup-dev.service - Create Static Device Nodes in /dev...
+[    6.790270] systemd[1]: Finished systemd-tmpfiles-setup-dev.service - Create Static Device Nodes in /dev.
+[    6.790387] systemd[1]: Reached target local-fs-pre.target - Preparation for Local File Systems.
+[    6.794134] systemd[1]: Starting systemd-udevd.service - Rule-based Manager for Device Events and Files...
+[    6.876210] systemd[1]: Started systemd-udevd.service - Rule-based Manager for Device Events and Files.
+[    6.877072] systemd[1]: Started systemd-journald.service - Journal Service.
+[    6.902107] systemd-journald[405]: Received client request to flush runtime journal.
+[    6.907974] systemd-journald[405]: File /var/log/journal/29fe732fd23749e8bae8e516e1e0766c/system.journal corrupted or uncleanly shut down, renaming and replacing.
+[    6.955716] sr 1:0:0:0: Attached scsi generic sg0 type 5
+[    6.958494] sd 2:0:0:0: Attached scsi generic sg1 type 0
+[    7.002092] ACPI: AC: AC Adapter [ACAD] (on-line)
+[    7.060068] Adding 998396k swap on /dev/sda5.  Priority:-2 extents:1 across:998396k 
+[    7.148855] input: PC Speaker as /devices/platform/pcspkr/input/input6
+[    7.180967] alg: No test for fips(ansi_cprng) (fips_ansi_cprng)
+[    7.340817] Bluetooth: Core ver 2.22
+[    7.340852] NET: Registered PF_BLUETOOTH protocol family
+[    7.340853] Bluetooth: HCI device and connection manager initialized
+[    7.340973] Bluetooth: HCI socket layer initialized
+[    7.340977] Bluetooth: L2CAP socket layer initialized
+[    7.340983] Bluetooth: SCO socket layer initialized
+[    7.359865] usbcore: registered new interface driver btusb
+[    7.640885] Bluetooth: hci0: unexpected cc 0x0c12 length: 2 < 3
+[    7.640992] Bluetooth: hci0: Opcode 0x0c12 failed: -38
+[    7.925529] RPC: Registered named UNIX socket transport module.
+[    7.925532] RPC: Registered udp transport module.
+[    7.925533] RPC: Registered tcp transport module.
+[    7.925534] RPC: Registered tcp-with-tls transport module.
+[    7.925535] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    8.342888] NET: Registered PF_QIPCRTR protocol family
+[    8.406779] pcnet32 0000:02:01.0 eth0: link up
+[   12.993133] rfkill: input handler disabled
+[   30.586439] rfkill: input handler enabled
+[   32.498528] rfkill: input handler disabled
+[  134.582953] loop: module loaded
+[  134.583641] loop0: detected capacity change from 0 to 204800
+[  134.634078] device-mapper: core: CONFIG_IMA_DISABLE_HTABLE is disabled. Duplicate IMA measurements will not be recorded in the IMA log.
+[  134.634373] device-mapper: uevent: version 1.0.3
+[  134.635723] device-mapper: ioctl: 4.48.0-ioctl (2023-03-01) initialised: dm-devel@redhat.com
+[  134.850928] EXT4-fs (dm-0): mounted filesystem 9832a123-a0c4-49a3-a126-cdb6745286f3 r/w with ordered data mode. Quota mode: none.
+[  135.885882] EXT4-fs (dm-0): unmounting filesystem 9832a123-a0c4-49a3-a126-cdb6745286f3.
+[  135.921383] device-mapper: table: 254:0: flakey: Invalid number of feature args (-EINVAL)
+[  135.921390] device-mapper: ioctl: error adding target to table
+[  590.109241] loop0: detected capacity change from 0 to 204800
+[  590.255847] EXT4-fs (dm-0): mounted filesystem 6ce7e4f2-057f-49ff-9760-4fd2db2cc279 r/w with ordered data mode. Quota mode: none.
+[  591.070299] EXT4-fs (dm-0): unmounting filesystem 6ce7e4f2-057f-49ff-9760-4fd2db2cc279.
+[  951.728671] loop0: detected capacity change from 0 to 204800
+[  951.904543] EXT4-fs (dm-0): mounted filesystem 77f80daf-f08a-4b5a-8e2d-8fc4d15f4992 r/w with ordered data mode. Quota mode: none.

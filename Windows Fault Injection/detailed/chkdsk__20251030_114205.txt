@@ -1,0 +1,145 @@
+﻿The type of the file system is NTFS.
+Volume label is Windows 10.
+
+Stage 1: Examining basic file system structure ...
+Progress: 0 of 302848 done; Stage:  0%; Total:  0%; ETA:   0:14:35    
+Progress: 12139 of 302848 done; Stage:  4%; Total:  1%; ETA:   0:14:22 .  
+Progress: 21097 of 302848 done; Stage:  6%; Total:  2%; ETA:   0:14:11 .. 
+Progress: 33537 of 302848 done; Stage: 11%; Total:  4%; ETA:   0:00:28 ...
+Progress: 42821 of 302848 done; Stage: 14%; Total:  6%; ETA:   0:00:28    
+Progress: 53682 of 302848 done; Stage: 17%; Total:  7%; ETA:   0:00:28 .  
+Progress: 71425 of 302848 done; Stage: 23%; Total:  9%; ETA:   0:00:27 .. 
+Progress: 87297 of 302848 done; Stage: 28%; Total: 11%; ETA:   0:00:27 ...
+Progress: 107136 of 302848 done; Stage: 35%; Total: 13%; ETA:   0:00:25    
+Progress: 126837 of 302848 done; Stage: 41%; Total: 16%; ETA:   0:00:23 .  
+Progress: 143567 of 302848 done; Stage: 47%; Total: 18%; ETA:   0:00:22 .. 
+Progress: 165889 of 302848 done; Stage: 54%; Total: 21%; ETA:   0:00:20 ...
+Progress: 186369 of 302848 done; Stage: 61%; Total: 23%; ETA:   0:00:20    
+Progress: 208860 of 302848 done; Stage: 68%; Total: 25%; ETA:   0:00:19 .  
+Progress: 231937 of 302848 done; Stage: 76%; Total: 28%; ETA:   0:00:17 .. 
+Progress: 251958 of 302848 done; Stage: 83%; Total: 30%; ETA:   0:00:17 ...
+Progress: 268033 of 302848 done; Stage: 88%; Total: 32%; ETA:   0:00:17    
+Progress: 278103 of 302848 done; Stage: 91%; Total: 33%; ETA:   0:00:17 .  
+Progress: 292312 of 302848 done; Stage: 96%; Total: 35%; ETA:   0:00:17 .. 
+Progress: 302848 of 302848 done; Stage: 100%; Total: 36%; ETA:   0:00:15 ...
+                                                                                       
+                                                                                       
+  302848 file records processed.                                                        
+
+File verification completed.
+Progress: 1 of 13746 done; Stage:  0%; Total: 19%; ETA:   0:00:17    
+Progress: 13746 of 13746 done; Stage: 100%; Total: 17%; ETA:   0:00:44 .  
+                                                                                       
+                                                                                       
+  13746 large file records processed.                                   
+
+Progress: 0 of 0 done; Stage: 99%; Total: 17%; ETA:   0:00:44 .. 
+                                                                                       
+                                                                                       
+  0 bad file records processed.                                     
+
+
+Stage 2: Examining file name linkage ...
+Progress: 16336 of 457716 done; Stage:  3%; Total: 18%; ETA:   0:00:44 ...
+Progress: 38155 of 457716 done; Stage:  8%; Total: 19%; ETA:   0:00:43    
+Progress: 51950 of 457716 done; Stage: 11%; Total: 20%; ETA:   0:00:43 .  
+Progress: 70878 of 457716 done; Stage: 15%; Total: 21%; ETA:   0:00:43 .. 
+Progress: 90919 of 457716 done; Stage: 19%; Total: 22%; ETA:   0:00:41 ...
+Progress: 90920 of 457716 done; Stage: 19%; Total: 22%; ETA:   0:00:41    
+Progress: 111308 of 457716 done; Stage: 24%; Total: 23%; ETA:   0:00:41 .  
+Progress: 131525 of 457716 done; Stage: 28%; Total: 24%; ETA:   0:00:39 .. 
+Progress: 149728 of 457716 done; Stage: 32%; Total: 25%; ETA:   0:00:39 ...
+Progress: 176174 of 457716 done; Stage: 38%; Total: 26%; ETA:   0:00:38    
+Progress: 206187 of 457716 done; Stage: 45%; Total: 28%; ETA:   0:00:36 .  
+Progress: 221820 of 457716 done; Stage: 48%; Total: 29%; ETA:   0:00:36 .. 
+Progress: 251181 of 457716 done; Stage: 54%; Total: 30%; ETA:   0:00:35 ...
+Progress: 278268 of 457716 done; Stage: 60%; Total: 32%; ETA:   0:00:33    
+Progress: 7090 of 7090 done; Stage: 100%; Total: 34%; ETA:   0:00:31 .  
+                                                                                       
+                                                                                       
+  7090 reparse records processed.                                      
+
+Progress: 302862 of 457716 done; Stage: 66%; Total: 34%; ETA:   0:00:31 .. 
+Progress: 303776 of 457716 done; Stage: 66%; Total: 34%; ETA:   0:00:32 ...
+Progress: 306651 of 457716 done; Stage: 66%; Total: 36%; ETA:   0:00:31    
+Progress: 307407 of 457716 done; Stage: 67%; Total: 38%; ETA:   0:00:31 .  
+Progress: 308006 of 457716 done; Stage: 67%; Total: 38%; ETA:   0:00:30 .. 
+Progress: 309233 of 457716 done; Stage: 67%; Total: 38%; ETA:   0:00:30 ...
+Progress: 311661 of 457716 done; Stage: 68%; Total: 38%; ETA:   0:00:30    
+Progress: 313252 of 457716 done; Stage: 68%; Total: 39%; ETA:   0:00:30 .  
+Progress: 314810 of 457716 done; Stage: 68%; Total: 39%; ETA:   0:00:30 .. 
+Progress: 316769 of 457716 done; Stage: 69%; Total: 40%; ETA:   0:00:30 ...
+Progress: 316774 of 457716 done; Stage: 69%; Total: 43%; ETA:   0:00:30    
+Progress: 318172 of 457716 done; Stage: 69%; Total: 43%; ETA:   0:00:28 .  
+Progress: 320378 of 457716 done; Stage: 69%; Total: 44%; ETA:   0:00:28 .. 
+Progress: 321710 of 457716 done; Stage: 70%; Total: 44%; ETA:   0:00:28 ...
+Progress: 322531 of 457716 done; Stage: 70%; Total: 44%; ETA:   0:00:28    
+Progress: 324005 of 457716 done; Stage: 70%; Total: 44%; ETA:   0:00:28 .  
+Progress: 326106 of 457716 done; Stage: 71%; Total: 46%; ETA:   0:00:28 .. 
+Progress: 332491 of 457716 done; Stage: 72%; Total: 47%; ETA:   0:00:28 ...
+Progress: 334100 of 457716 done; Stage: 72%; Total: 47%; ETA:   0:00:28    
+Progress: 334969 of 457716 done; Stage: 73%; Total: 47%; ETA:   0:00:28 .  
+Progress: 336065 of 457716 done; Stage: 73%; Total: 51%; ETA:   0:00:28 .. 
+Progress: 338456 of 457716 done; Stage: 73%; Total: 52%; ETA:   0:00:25 ...
+Progress: 351994 of 457716 done; Stage: 76%; Total: 53%; ETA:   0:00:25    
+Progress: 358073 of 457716 done; Stage: 78%; Total: 54%; ETA:   0:00:23 .  
+Progress: 365418 of 457716 done; Stage: 79%; Total: 54%; ETA:   0:00:23 .. 
+Progress: 366372 of 457716 done; Stage: 80%; Total: 55%; ETA:   0:00:23 ...
+Progress: 367319 of 457716 done; Stage: 80%; Total: 55%; ETA:   0:00:23    
+Progress: 368346 of 457716 done; Stage: 80%; Total: 55%; ETA:   0:00:23 .  
+Progress: 371639 of 457716 done; Stage: 81%; Total: 56%; ETA:   0:00:23 .. 
+Progress: 378423 of 457716 done; Stage: 82%; Total: 57%; ETA:   0:00:23 ...
+Progress: 457716 of 457716 done; Stage: 100%; Total: 57%; ETA:   0:00:23    
+                                                                                       
+                                                                                       
+  457716 index entries processed.                                                       
+
+Index verification completed.
+Progress: 1 of 0 done; Stage: 99%; Total: 57%; ETA:   0:00:23 .  
+Progress: 0 of 0 done; Stage: 99%; Total: 57%; ETA:   0:00:23 .. 
+                                                                                       
+                                                                                       
+  0 unindexed files scanned.                                        
+
+Progress: 0 of 0 done; Stage: 99%; Total: 57%; ETA:   0:00:23 ...
+                                                                                       
+                                                                                       
+  0 unindexed files recovered to lost and found.                    
+
+Progress: 7090 of 7090 done; Stage: 100%; Total: 57%; ETA:   0:00:23    
+                                                                                       
+                                                                                       
+  7090 reparse records processed.                                      
+
+
+Stage 3: Examining security descriptors ...
+Security descriptor verification completed.
+Progress: 9 of 9 done; Stage: 100%; Total: 71%; ETA:   0:00:23 .  
+                                                                                       
+                                                                                       
+  77435 data files processed.                                           
+
+CHKDSK is verifying Usn Journal...
+Progress: 0 of 4842 done; Stage:  0%; Total: 73%; ETA:   0:00:22 .. 
+Progress: 1977 of 4842 done; Stage: 40%; Total: 74%; ETA:   0:00:12 ...
+Progress: 4842 of 4842 done; Stage: 100%; Total: 75%; ETA:   0:00:11    
+                                                                                       
+                                                                                       
+  39671744 USN bytes processed.                                                           
+
+Usn Journal verification completed.
+
+Windows has scanned the file system and found no problems.
+No further action is required.
+
+  41940991 KB total disk space.
+  33969648 KB in 211055 files.
+    145596 KB in 77436 indexes.
+         0 KB in bad sectors.
+    404527 KB in use by the system.
+     56016 KB occupied by the log file.
+   7421220 KB available on disk.
+
+      4096 bytes in each allocation unit.
+  10485247 total allocation units on disk.
+   1855305 allocation units available on disk.

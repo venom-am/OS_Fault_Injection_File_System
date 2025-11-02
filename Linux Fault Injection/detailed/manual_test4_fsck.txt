@@ -1,0 +1,5 @@
+e2fsck 1.47.1 (20-May-2024)
+/dev/mapper/flakey0 is mounted.
+e2fsck: Cannot continue, aborting.
+
+

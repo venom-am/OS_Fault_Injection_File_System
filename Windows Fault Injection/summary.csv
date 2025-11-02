@@ -1,0 +1,5 @@
+﻿TestName,Trial,Result,PreHash,PostHash,ChkdskPath,EventLogPath,Notes
+FileCorruption,1,Modified,28f081c6be8a1a847e584fc471218c78,2f2893a0c56659ee91a63a31f3182f8d,C:\Users\Public\fs_fault_lab\detailed\chkdsk__20251030_114205.txt,C:\Users\Public\fs_fault_lab\detailed\test1-EventLogs.txt,
+DiskOffline,1,Skipped,28f081c6be8a1a847e584fc471218c78,N/A,N/A,N/A,SkippedByFlag
+NetworkFlaky,1,Skipped,28f081c6be8a1a847e584fc471218c78,N/A,N/A,N/A,SkippedByFlag
+CrashSimulation,1,Prepared,28f081c6be8a1a847e584fc471218c78,N/A,N/A,N/A,ManualHardPowerOffRecommended

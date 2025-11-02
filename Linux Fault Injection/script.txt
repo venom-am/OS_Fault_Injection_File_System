@@ -1,0 +1,128 @@
+#!/bin/bash
+# Linux FS Fault Injector (Condensed)
+
+set -e
+set -o pipefail
+
+BASE_DIR="/root/fs_fault_lab_linux"
+DETAIL_DIR="$BASE_DIR/detailed"
+SUMMARY="$BASE_DIR/summary.csv"
+IMG="$BASE_DIR/fs_test.img"
+MNT="$BASE_DIR/mnt"
+SECTORS=204800
+DEVICE=""
+LOOPDEV=""
+DMNAME="flakey0"
+
+mkdir -p "$DETAIL_DIR" "$MNT"
+echo "Time,Test,Result,PreHash,PostHash,fsck_log,dmesg_log,Notes" > "$SUMMARY"
+
+log() { echo "[$(date +'%F %T')] $*" | tee -a "$BASE_DIR/master.log"; }
+run_cmd() { echo "\$ $*" >> "$BASE_DIR/master.log"; eval "$@" 2>&1 | tee -a "$BASE_DIR/master.log"; }
+
+cleanup() {
+  log "Cleanup..."
+  sync
+  umount "$MNT" 2>/dev/null || true
+  dmsetup remove "$DMNAME" 2>/dev/null || true
+  losetup -d "$LOOPDEV" 2>/dev/null || true
+}
+trap cleanup EXIT
+
+# Create image + loop device
+log "Creating image..."
+dd if=/dev/zero of="$IMG" bs=512 count=$SECTORS status=none
+LOOPDEV=$(losetup --find --show "$IMG")
+DEVICE=$LOOPDEV
+log "Loop device: $LOOPDEV"
+
+# Create flakey mapping
+log "Creating flakey mapping..."
+dmsetup create $DMNAME --table "0 $SECTORS flakey $DEVICE 0 5 30"
+
+# Format EXT4
+log "Formatting EXT4..."
+mkfs.ext4 -F /dev/mapper/$DMNAME > "$DETAIL_DIR/mkfs.txt"
+
+# Mount FS
+log "Mounting FS..."
+mount /dev/mapper/$DMNAME "$MNT"
+
+# Write data + prehash
+log "Writing test data..."
+dd if=/dev/urandom of="$MNT/testfile.bin" bs=1M count=50 status=none
+sync
+PREHASH=$(md5sum "$MNT/testfile.bin" | awk '{print $1}')
+echo "PreHash: $PREHASH" > "$DETAIL_DIR/meta.txt"
+log "PreHash=$PREHASH"
+
+# Test 1: File corruption
+log "Test1: File corruption"
+FAULT_FILE="$MNT/testfile.bin"
+for i in {1..32}; do
+  POS=$((RANDOM % (50*1024*1024)))
+  printf "\\x$(printf %x $((RANDOM%256)))" | dd of="$FAULT_FILE" bs=1 seek=$POS count=1 conv=notrunc status=none
+done
+sync
+POSTHASH=$(md5sum "$FAULT_FILE" | awk '{print $1}')
+dmesg | tail -n 50 > "$DETAIL_DIR/test1_dmesg.txt"
+fsck.ext4 -fn /dev/mapper/$DMNAME > "$DETAIL_DIR/test1_fsck.txt" 2>&1 || true
+RESULT="NoChange"
+[[ "$PREHASH" != "$POSTHASH" ]] && RESULT="Modified"
+echo "$(date +'%F %T'),FileCorruption,$RESULT,$PREHASH,$POSTHASH,$DETAIL_DIR/test1_fsck.txt,$DETAIL_DIR/test1_dmesg.txt,byte_flips=32" >> "$SUMMARY"
+log "Test1: $RESULT"
+
+# Test 2: Flakey I/O
+log "Test2: Flakey I/O"
+umount "$MNT"
+dmsetup remove $DMNAME
+dmsetup create $DMNAME --table "0 $SECTORS flakey $DEVICE 0 50 10 drop_writes"
+mount /dev/mapper/$DMNAME "$MNT"
+sync
+
+set +e
+dd if=/mnt/testfile.bin of="$MNT/copy1.bin" bs=1M count=50 conv=fsync &> "$DETAIL_DIR/test2_dd.txt"
+DMESG_LOG="$DETAIL_DIR/test2_dmesg.txt"
+dmesg | tail -n 100 > "$DMESG_LOG"
+fsck.ext4 -fn /dev/mapper/$DMNAME > "$DETAIL_DIR/test2_fsck.txt" 2>&1
+set -e
+sync
+POSTHASH2=$(md5sum "$MNT/testfile.bin" | awk '{print $1}')
+RES2="Failed" && [[ "$PREHASH" == "$POSTHASH2" ]] && RES2="OK"
+echo "$(date +'%F %T'),FlakeyIO,$RES2,$PREHASH,$POSTHASH2,$DETAIL_DIR/test2_fsck.txt,$DMESG_LOG,drop_writes" >> "$SUMMARY"
+log "Test2: $RES2"
+
+# Test 3: Crash simulation
+log "Test3: Crash simulation"
+sync
+umount "$MNT" || true
+e2fsck -fy "$DEVICE" > "$DETAIL_DIR/test3_fsck.txt" 2>&1 || true
+mount /dev/mapper/$DMNAME "$MNT"
+POSTHASH3=$(md5sum "$MNT/testfile.bin" | awk '{print $1}')
+dmesg | tail -n 50 > "$DETAIL_DIR/test3_dmesg.txt"
+STATUS3="Recovered"
+[[ "$POSTHASH3" != "$PREHASH" ]] && STATUS3="Corrupted"
+echo "$(date +'%F %T'),CrashSim,$STATUS3,$PREHASH,$POSTHASH3,$DETAIL_DIR/test3_fsck.txt,$DETAIL_DIR/test3_dmesg.txt,forced_fsck" >> "$SUMMARY"
+log "Test3: $STATUS3"
+
+# Test 4: I/O stress
+log "Test4: I/O stress"
+for i in {1..5}; do
+  cp "$MNT/testfile.bin" "$MNT/copy_stress_$i.bin" 2>>"$DETAIL_DIR/test4_copy.txt"
+done
+sync
+fsck.ext4 -fn /dev/mapper/$DMNAME > "$DETAIL_DIR/test4_fsck.txt" 2>&1
+dmesg | tail -n 50 > "$DETAIL_DIR/test4_dmesg.txt"
+POSTHASH4=$(md5sum "$MNT/testfile.bin" | awk '{print $1}')
+RES4="OK"
+[[ "$POSTHASH4" != "$PREHASH" ]] && RES4="Mismatch"
+echo "$(date +'%F %T'),IOStress,$RES4,$PREHASH,$POSTHASH4,$DETAIL_DIR/test4_fsck.txt,$DETAIL_DIR/test4_dmesg.txt,copy5x" >> "$SUMMARY"
+log "Test4: $RES4"
+
+# Final cleanup
+cleanup
+log "All tests done. Summary: $SUMMARY"
+echo
+echo "====== SUMMARY ======"
+cat "$SUMMARY"
+echo "Logs in $DETAIL_DIR"

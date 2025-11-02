@@ -1,0 +1,243 @@
+param(
+  [Parameter(Mandatory=$true)][ValidatePattern("^[A-Z]:$")] [string]$DriveLetter,
+  [switch]$SkipDiskOffline = $true,
+  [switch]$SkipNetwork = $true
+)
+
+# Stop script with message
+function Abort([string]$msg){ Write-Host $msg; exit 1 }
+
+# Check admin rights
+if (-not ([bool]([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator))) {
+  Abort "Please run PowerShell as Administrator."
+}
+
+# Helpers
+function Get-Timestamp { return (Get-Date).ToString('s') }
+function Log([string]$m){ "$((Get-Timestamp))`t$m" }
+function Save-Text([string]$path, [string]$text){ $text | Out-File -FilePath $path -Encoding UTF8 -Force }
+
+# Compute MD5 of file
+function Get-MD5([string]$file){
+  if (-not (Test-Path $file)) { return "MISSING" }
+  try {
+    $out = certutil -hashfile $file MD5 2>&1
+    $match = $out | Select-String -Pattern '([0-9A-Fa-f]{32})' -AllMatches
+    if ($match.Count -gt 0) { return ($match.Matches | ForEach-Object { $_.Groups[1].Value }) -join '' }
+    return ($out -join " | ")
+  } catch {
+    return "MD5_ERROR:$($_.Exception.Message)"
+  }
+}
+
+# Run chkdsk and save output
+function Capture-Chkdsk([string]$drive){
+  $stamp = (Get-Date -Format 'yyyyMMdd_HHmmss')
+  $out = Join-Path $DetailedDir "chkdsk_${($drive.TrimEnd(':'))}_$stamp.txt"
+  try {
+    chkdsk $drive /scan 2>&1 | Out-File -FilePath $out -Encoding UTF8
+  } catch {
+    "chkdsk error: $($_.Exception.Message)" | Out-File -FilePath $out -Encoding UTF8
+  }
+  return $out
+}
+
+# Collect recent disk/NTFS/power event logs
+function Capture-Events([string]$prefix){
+  $out = Join-Path $DetailedDir "$prefix-EventLogs.txt"
+  "`n===== Event Log excerpt ($prefix) at $(Get-Date) =====`n" | Out-File $out -Encoding UTF8
+  $providers = @('Disk','Ntfs','Kernel-Power')
+  foreach ($p in $providers) {
+    "`n--- Provider: $p ---`n" | Out-File -FilePath $out -Append -Encoding UTF8
+    try {
+      $events = Get-WinEvent -FilterHashtable @{LogName='System'; ProviderName=$p; StartTime=(Get-Date).AddMinutes(-120)} -MaxEvents 200 -ErrorAction Stop
+      if ($events -and $events.Count -gt 0) {
+        $events | Select TimeCreated, Id, LevelDisplayName, ProviderName, @{Name='Message';Expression={ ($_.Message -replace "`r?`n","\u2028") }} `
+          | Format-Table -AutoSize | Out-String | Out-File -FilePath $out -Append -Encoding UTF8
+      } else {
+        "No recent events for $p" | Out-File -FilePath $out -Append -Encoding UTF8
+      }
+    } catch {
+      try {
+        $ev = Get-EventLog -LogName System -Newest 200 | Where-Object { $_.Source -like "*$p*" } -ErrorAction SilentlyContinue
+        if ($ev -and $ev.Count -gt 0) {
+          $ev | Select TimeGenerated, EntryType, Source, Message | Out-String | Out-File -FilePath $out -Append -Encoding UTF8
+        } else {
+          "Provider $p not available or no events." | Out-File -FilePath $out -Append -Encoding UTF8
+        }
+      } catch {
+        "Event capture error for $p: $($_.Exception.Message)" | Out-File -FilePath $out -Append -Encoding UTF8
+      }
+    }
+  }
+  return $out
+}
+
+# Create workspace
+$WorkDir = "C:\Users\Public\fs_fault_lab"
+$DetailedDir = Join-Path $WorkDir "detailed"
+New-Item -Path $WorkDir -ItemType Directory -Force | Out-Null
+New-Item -Path $DetailedDir -ItemType Directory -Force | Out-Null
+
+# Setup test folder and file
+$TestFolder = Join-Path $DriveLetter "fs_fault_test"
+$TestFile = Join-Path $TestFolder "bigfile.bin"
+$TestFileSizeBytes = 200MB
+$SummaryCSV = Join-Path $WorkDir "summary.csv"
+
+Write-Host (Log "Preparing test folder $TestFolder")
+New-Item -Path $TestFolder -ItemType Directory -Force | Out-Null
+
+if (-not (Test-Path $TestFile)) {
+  Write-Host (Log "Creating test file: $TestFile ($([int]($TestFileSizeBytes/1MB)) MB)")
+  try {
+    fsutil file createnew $TestFile $TestFileSizeBytes | Out-Null
+  } catch {
+    Write-Host (Log "fsutil error: $($_.Exception.Message)")
+    Abort "Unable to create test file."
+  }
+} else {
+  Write-Host (Log "Test file exists: $TestFile")
+}
+
+# Initial hash and metadata
+$preHash = Get-MD5 $TestFile
+@("Time: $(Get-Date)", "Drive: $DriveLetter", "PreHash: $preHash") | Out-File -FilePath (Join-Path $DetailedDir "pre_meta.txt") -Encoding UTF8
+"TestName,Trial,Result,PreHash,PostHash,ChkdskPath,EventLogPath,Notes" | Out-File -FilePath $SummaryCSV -Encoding UTF8
+
+# ---- TEST 1: File corruption ----
+Write-Host (Log "TEST 1: File corruption starting")
+$trial = 1
+$pre = $preHash
+try {
+  $rand = New-Object System.Random
+  $fs = [System.IO.File]::Open($TestFile, 'Open', 'ReadWrite')
+  $size = $fs.Length
+  for ($i=0; $i -lt 32; $i++) {
+    $pos = $rand.Next(0, [int]$size)
+    $fs.Position = $pos
+    $byteVal = [byte]($rand.Next(0,256))
+    $fs.WriteByte($byteVal)
+  }
+  $fs.Close()
+  Start-Sleep -Seconds 1
+  $post = Get-MD5 $TestFile
+  $chkdskPath = Capture-Chkdsk -drive $DriveLetter
+  $evPath = Capture-Events -prefix "test1"
+  $status = if ($post -ne $pre) { "Modified" } else { "NoChange" }
+} catch {
+  $post="ERROR"; $chkdskPath="ERROR"; $evPath="ERROR"
+  $status="Error:$($_.Exception.Message)"
+}
+"FileCorruption,$trial,$status,$pre,$post,$chkdskPath,$evPath," | Out-File -FilePath $SummaryCSV -Append -Encoding UTF8
+Write-Host (Log "TEST 1 complete: $status")
+
+# ---- TEST 2: Disk offline toggles ----
+if ($SkipDiskOffline) {
+  Write-Host (Log "TEST 2 skipped.")
+  "DiskOffline,1,Skipped,$pre,N/A,N/A,N/A,SkippedByFlag" | Out-File -FilePath $SummaryCSV -Append -Encoding UTF8
+} else {
+  $partition = Get-Partition -DriveLetter $DriveLetter.TrimEnd(':') -ErrorAction SilentlyContinue
+  if ($null -eq $partition) {
+    Write-Host (Log "Partition not found.")
+    "DiskOffline,1,Skipped,$pre,N/A,N/A,N/A,PartitionNotFound" | Out-File -FilePath $SummaryCSV -Append -Encoding UTF8
+  } else {
+    if ($partition.DiskNumber -eq 0) {
+      Write-Host (Log "System disk skip.")
+      "DiskOffline,1,Skipped,$pre,N/A,N/A,N/A,SystemDiskSkip" | Out-File -FilePath $SummaryCSV -Append -Encoding UTF8
+    } else {
+      Write-Host (Log "Running disk offline/online toggles.")
+      $copyLog = Join-Path $DetailedDir "disk_offline_copy_log.txt"
+      "" | Out-File -FilePath $copyLog -Encoding UTF8
+      $succ=0; $fail=0
+      for ($i=1; $i -le 6; $i++) {
+        $dest = Join-Path $TestFolder ("copy_disk_$i.bin")
+        $job = Start-Job -ScriptBlock { param($s,$d) Copy-Item -Path $s -Destination $d -ErrorAction Stop } -ArgumentList $TestFile,$dest
+        Start-Sleep -Milliseconds 300
+        try {
+          Set-Disk -Number $partition.DiskNumber -IsOffline $true -ErrorAction Stop
+          Start-Sleep -Seconds 1
+          Set-Disk -Number $partition.DiskNumber -IsOffline $false -ErrorAction Stop
+        } catch {
+          "Toggle error: $($_.Exception.Message)" | Out-File -FilePath $copyLog -Append -Encoding UTF8
+        }
+        $finished = Wait-Job -Job $job -Timeout 8
+        if ($finished) {
+          Receive-Job -Job $job -ErrorAction SilentlyContinue | Out-Null
+          $succ++; "$i,OK" | Out-File -FilePath $copyLog -Append -Encoding UTF8
+        } else {
+          $fail++; "$i,FAILED" | Out-File -FilePath $copyLog -Append -Encoding UTF8
+          Stop-Job -Job $job -ErrorAction SilentlyContinue
+        }
+        try { Remove-Job -Job $job -Force -ErrorAction SilentlyContinue } catch {}
+      }
+      $post = Get-MD5 $TestFile
+      $chkdskPath = Capture-Chkdsk -drive $DriveLetter
+      $evPath = Capture-Events -prefix "test2"
+      "DiskOffline,1,Completed,$pre,$post,$chkdskPath,$evPath,success=$succ;fail=$fail;log=$copyLog" | Out-File -FilePath $SummaryCSV -Append -Encoding UTF8
+      Write-Host (Log "TEST 2 complete success=$succ fail=$fail")
+    }
+  }
+}
+
+# ---- TEST 3: Network flakiness ----
+if ($SkipNetwork) {
+  Write-Host (Log "TEST 3 skipped.")
+  "NetworkFlaky,1,Skipped,$pre,N/A,N/A,N/A,SkippedByFlag" | Out-File -FilePath $SummaryCSV -Append -Encoding UTF8
+} else {
+  $smbShare = $env:SMB_TEST_SHARE
+  if (-not $smbShare) { $smbShare = Read-Host "Enter SMB UNC path (\\host\share) or press Enter to skip" }
+  if ([string]::IsNullOrWhiteSpace($smbShare)) {
+    "NetworkFlaky,1,Skipped,$pre,N/A,N/A,N/A,NoSMB" | Out-File -FilePath $SummaryCSV -Append -Encoding UTF8
+  } else {
+    $map = "Z:"
+    net use $map $smbShare /persistent:no 2>$null | Out-Null
+    if (-not (Test-Path $map)) {
+      "NetworkFlaky,1,Skipped,$pre,N/A,N/A,N/A,MapFailed" | Out-File -FilePath $SummaryCSV -Append -Encoding UTF8
+    } else {
+      $adapter = Get-NetAdapter | Where-Object { $_.Status -eq 'Up' } | Select-Object -First 1
+      if ($null -eq $adapter) {
+        "NetworkFlaky,1,Skipped,$pre,N/A,N/A,N/A,NoAdapter" | Out-File -FilePath $SummaryCSV -Append -Encoding UTF8
+      } else {
+        $succ=0;$fail=0;$netlog = Join-Path $DetailedDir "network_copy_log.txt"; "" | Out-File $netlog -Encoding UTF8
+        for ($i=1; $i -le 6; $i++) {
+          $dest = "$map\copy_net_$i.bin"
+          $job = Start-Job -ScriptBlock { param($s,$d) Copy-Item -Path $s -Destination $d -ErrorAction Stop } -ArgumentList $TestFile,$dest
+          Start-Sleep -Milliseconds 300
+          Disable-NetAdapter -Name $adapter.Name -Confirm:$false -ErrorAction SilentlyContinue
+          Start-Sleep -Seconds 1
+          Enable-NetAdapter -Name $adapter.Name -Confirm:$false -ErrorAction SilentlyContinue
+          $finished = Wait-Job -Job $job -Timeout 8
+          if ($finished) {
+            Receive-Job -Job $job -ErrorAction SilentlyContinue | Out-Null
+            $succ++; "$i,OK" | Out-File -FilePath $netlog -Append -Encoding UTF8
+          } else {
+            $fail++; "$i,FAILED" | Out-File -FilePath $netlog -Append -Encoding UTF8
+            Stop-Job -Job $job -ErrorAction SilentlyContinue
+          }
+          try { Remove-Job -Job $job -Force -ErrorAction SilentlyContinue } catch {}
+        }
+        net use $map /delete /y 2>$null | Out-Null
+        $post = Get-MD5 $TestFile
+        $chkdskPath = Capture-Chkdsk -drive $DriveLetter
+        $evPath = Capture-Events -prefix "test3"
+        "NetworkFlaky,1,Completed,$pre,$post,$chkdskPath,$evPath,success=$succ;fail=$fail;log=$netlog" | Out-File -FilePath $SummaryCSV -Append -Encoding UTF8
+        Write-Host (Log "TEST 3 complete success=$succ fail=$fail")
+      }
+    }
+  }
+}
+
+# ---- TEST 4: Crash prep ----
+Write-Host (Log "TEST 4: Crash prep starting.")
+$huge = Join-Path $TestFolder "hugefile_crash_test.bin"
+try {
+  $job = Start-Job -ScriptBlock { param($p) fsutil file createnew $p 1073741824 } -ArgumentList $huge
+  "CrashSimulation,1,Prepared,$pre,N/A,N/A,N/A,ManualHardPowerOffRecommended" | Out-File -FilePath $SummaryCSV -Append -Encoding UTF8
+  Write-Host (Log "Background write started for manual crash test.")
+} catch {
+  "CrashSimulation,1,Error,$pre,N/A,N/A,N/A,JobStartError:$($_.Exception.Message)" | Out-File -FilePath $SummaryCSV -Append -Encoding UTF8
+}
+
+Write-Host (Log "Script finished. Summary CSV: $SummaryCSV")
+Write-Host (Log "Detailed logs in: $DetailedDir")

@@ -1,0 +1,4 @@
+e2fsck 1.47.1 (20-May-2024)
+Warning!  /dev/mapper/flakey0 is mounted.
+Warning: skipping journal recovery because doing a read-only filesystem check.
+/dev/mapper/flakey0: clean, 12/25584 files, 12113/102400 blocks
